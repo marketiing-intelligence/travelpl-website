@@ -22,87 +22,106 @@ const typeLabel = trip.type === 'wczasy' ? 'Wczasy' : 'Wycieczka objazdowa';
 
 <Layout title={`${trip.fullName} — TravelPL`} description={trip.shortDescription}>
   <!-- Hero -->
-  <section class="relative py-20 md:py-28 bg-gradient-to-br from-primary/20 to-accent/10">
-    <div class="max-w-4xl mx-auto px-4">
-      <a href="/#oferta" class="inline-flex items-center gap-1 text-primary hover:text-primary/80 font-medium mb-6 transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  <section class="relative py-20 md:py-32 overflow-hidden bg-dark">
+    {trip.image && (
+      <img
+        src={trip.image}
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+      />
+    )}
+    <div class="absolute inset-0 bg-gradient-to-r from-dark/85 via-dark/65 to-dark/40"></div>
+    <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-dark/60 to-transparent"></div>
+
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6">
+      <a href="/#oferta" class="inline-flex items-center gap-1.5 text-white/85 hover:text-white font-semibold mb-8 transition-colors bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         Wróć do oferty
       </a>
-      <div class="flex flex-wrap items-center gap-3 mb-4">
-        <span class="inline-flex items-center bg-primary/10 text-primary text-sm font-bold px-3 py-1 rounded-full">
+      <div class="flex flex-wrap items-center gap-2.5 mb-5">
+        <span class="inline-flex items-center bg-white/15 backdrop-blur-md text-white text-sm font-bold px-3.5 py-1.5 rounded-full border border-white/20">
           {typeLabel}
         </span>
         {trip.badge && (
-          <span class="inline-flex items-center bg-accent text-white text-sm font-bold px-3 py-1 rounded-full">
+          <span class="inline-flex items-center bg-accent text-white text-sm font-bold px-3.5 py-1.5 rounded-full shadow-sm">
             {trip.badge}
           </span>
         )}
         {trip.beachDistance && (
-          <span class="inline-flex items-center gap-1 bg-primary/10 text-primary text-sm font-medium px-3 py-1 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg>
+          <span class="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-md text-white text-sm font-semibold px-3.5 py-1.5 rounded-full border border-white/20">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M2 17h20"/><path d="M2 7h20"/></svg>
             {trip.beachDistance}
           </span>
         )}
       </div>
-      <h1 class="text-3xl md:text-4xl font-bold text-dark mb-4">{trip.fullName}</h1>
-      <div class="flex flex-wrap items-center gap-4 mb-6">
-        <span class="inline-flex items-center gap-2 bg-primary text-white font-bold text-xl px-5 py-2 rounded-xl">
-          od {formattedPrice} zł/os
-        </span>
-      </div>
-      <div class="flex flex-wrap gap-4 text-dark/60">
+      <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-extrabold tracking-tight leading-[1.1] text-white mb-6 max-w-3xl">{trip.fullName}</h1>
+
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-white/90 mb-8 text-lg">
         <span class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           {trip.dates}
         </span>
         <span class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           {trip.duration}
         </span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+        <span class="inline-flex items-baseline gap-2 bg-white text-dark font-extrabold text-2xl md:text-3xl px-7 py-3.5 rounded-2xl shadow-card-hover self-start tracking-tight">
+          <span class="text-base font-semibold text-dark/50">od</span>
+          {formattedPrice} zł
+          <span class="text-base font-semibold text-dark/50">/os</span>
+        </span>
+        <a href="tel:+48793705063" class="btn-accent self-start">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Zarezerwuj: 793 705 063
+        </a>
       </div>
     </div>
   </section>
 
   <!-- Content -->
   <section class="py-16 md:py-24">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-12">
         <!-- Main content -->
-        <div class="lg:col-span-2 space-y-10">
+        <div class="lg:col-span-2 space-y-12">
           <!-- Important info -->
           {trip.importantInfo && (
-            <div class="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl p-4">
-              <svg class="text-amber-600 shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              <p class="text-amber-800 font-medium">{trip.importantInfo}</p>
+            <div class="flex items-start gap-4 bg-amber-50 border-2 border-amber-200 rounded-2xl p-5">
+              <svg class="text-amber-600 shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <p class="text-amber-900 font-semibold">{trip.importantInfo}</p>
             </div>
           )}
 
           <!-- Description -->
           <div>
-            <h2 class="text-2xl font-bold text-dark mb-4">O {trip.type === 'wycieczka' ? 'wycieczce' : 'wyjeździe'}</h2>
+            <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-dark mb-5">O {trip.type === 'wycieczka' ? 'wycieczce' : 'wyjeździe'}</h2>
             <p class="text-lg leading-relaxed text-dark/80">{trip.fullDescription}</p>
           </div>
 
           <!-- Program (day-by-day) -->
           {trip.program && trip.program.length > 0 && (
             <div>
-              <h2 class="text-2xl font-bold text-dark mb-5">Program</h2>
-              <div class="space-y-4">
+              <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-dark mb-6">Program</h2>
+              <div>
                 {trip.program.map((day, i) => {
                   const colonIndex = day.indexOf(':');
                   const hasLabel = colonIndex > 0 && colonIndex < 20;
                   const label = hasLabel ? day.slice(0, colonIndex) : `Dzień ${i + 1}`;
                   const content = hasLabel ? day.slice(colonIndex + 1).trim() : day;
                   return (
-                    <div class="flex gap-4">
+                    <div class="flex gap-5">
                       <div class="flex flex-col items-center">
-                        <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0">
+                        <div class="w-11 h-11 rounded-2xl bg-primary text-white flex items-center justify-center font-extrabold text-base shrink-0 shadow-cta-blue">
                           {i + 1}
                         </div>
-                        {i < trip.program!.length - 1 && <div class="w-0.5 flex-1 bg-primary/20 mt-1"></div>}
+                        {i < trip.program!.length - 1 && <div class="w-0.5 flex-1 bg-gradient-to-b from-primary/30 to-primary/10 my-1.5 rounded-full"></div>}
                       </div>
-                      <div class="pb-4">
-                        <p class="font-bold text-dark mb-1">{label}</p>
+                      <div class="pb-8">
+                        <p class="font-bold text-dark text-lg mb-1.5 pt-2">{label}</p>
                         <p class="text-dark/70 leading-relaxed">{content}</p>
                       </div>
                     </div>
@@ -115,13 +134,15 @@ const typeLabel = trip.type === 'wczasy' ? 'Wczasy' : 'Wycieczka objazdowa';
           <!-- Itinerary -->
           {trip.itinerary && trip.itinerary.length > 0 && (
             <div>
-              <h2 class="text-2xl font-bold text-dark mb-4">Trasa</h2>
-              <div class="flex flex-wrap gap-2">
+              <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-dark mb-5">Trasa</h2>
+              <div class="flex flex-wrap items-center gap-y-2.5">
                 {trip.itinerary.map((place, i) => (
-                  <span class="inline-flex items-center gap-1 bg-primary/10 text-primary font-medium px-4 py-2 rounded-lg">
-                    {i > 0 && <span class="text-primary/40 mr-1">&rarr;</span>}
-                    {place}
-                  </span>
+                  <>
+                    {i > 0 && <svg class="text-primary/40 mx-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>}
+                    <span class="inline-flex items-center bg-primary-soft text-primary font-semibold px-4 py-2 rounded-full">
+                      {place}
+                    </span>
+                  </>
                 ))}
               </div>
             </div>
@@ -130,10 +151,13 @@ const typeLabel = trip.type === 'wczasy' ? 'Wczasy' : 'Wycieczka objazdowa';
           <!-- Highlights -->
           {trip.highlights.length > 0 && (
             <div>
-              <h2 class="text-2xl font-bold text-dark mb-4">Atrakcje</h2>
-              <div class="flex flex-wrap gap-2">
+              <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-dark mb-5">Atrakcje</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {trip.highlights.map((h) => (
-                  <span class="bg-accent/10 text-accent font-medium px-4 py-2 rounded-lg">{h}</span>
+                  <span class="flex items-center gap-3 bg-accent-soft text-dark font-semibold px-4 py-3 rounded-2xl">
+                    <svg class="text-accent shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    {h}
+                  </span>
                 ))}
               </div>
             </div>
@@ -142,11 +166,11 @@ const typeLabel = trip.type === 'wczasy' ? 'Wczasy' : 'Wycieczka objazdowa';
           <!-- Special attractions -->
           {trip.specialAttractions && trip.specialAttractions.length > 0 && (
             <div>
-              <h2 class="text-2xl font-bold text-dark mb-4">Atrakcje specjalne</h2>
-              <ul class="space-y-2">
+              <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-dark mb-5">Atrakcje specjalne</h2>
+              <ul class="space-y-3">
                 {trip.specialAttractions.map((a) => (
-                  <li class="flex items-start gap-2">
-                    <svg class="text-accent shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <li class="flex items-start gap-3">
+                    <svg class="text-accent shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     <span class="text-dark/80">{a}</span>
                   </li>
                 ))}
@@ -156,62 +180,68 @@ const typeLabel = trip.type === 'wczasy' ? 'Wczasy' : 'Wycieczka objazdowa';
         </div>
 
         <!-- Sidebar -->
-        <div class="space-y-6">
-          <!-- Included -->
-          <div class="bg-light rounded-2xl p-6">
-            <h3 class="text-xl font-bold text-dark mb-4">Co w cenie?</h3>
-            <ul class="space-y-3">
-              {trip.included.map((item) => (
-                <li class="flex items-start gap-2">
-                  <svg class="text-success shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span class="text-dark/80">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- Not included -->
-          {trip.notIncluded && trip.notIncluded.length > 0 && (
-            <div class="bg-white border border-gray-200 rounded-2xl p-6">
-              <h3 class="text-xl font-bold text-dark mb-4">Dodatkowo płatne</h3>
-              <ul class="space-y-3">
-                {trip.notIncluded.map((item) => (
-                  <li class="flex items-start gap-2">
-                    <svg class="text-dark/30 shrink-0 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-                    <span class="text-dark/60">{item}</span>
+        <div>
+          <div class="space-y-6 lg:sticky lg:top-28">
+            <!-- Included -->
+            <div class="bg-light rounded-3xl p-6 md:p-7 ring-1 ring-dark/5">
+              <h3 class="text-xl font-bold text-dark mb-5">Co w cenie?</h3>
+              <ul class="space-y-3.5">
+                {trip.included.map((item) => (
+                  <li class="flex items-start gap-3">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-success/15 shrink-0 mt-0.5">
+                      <svg class="text-success" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    <span class="text-dark/80">{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          )}
 
-          <!-- CTA -->
-          <div class="bg-primary text-white rounded-2xl p-6 text-center">
-            <p class="text-xl font-bold mb-2">Zarezerwuj telefonicznie</p>
-            <p class="text-white/80 mb-4 text-sm">To najszybszy sposób!</p>
+            <!-- Not included -->
+            {trip.notIncluded && trip.notIncluded.length > 0 && (
+              <div class="card p-6 md:p-7">
+                <h3 class="text-xl font-bold text-dark mb-5">Dodatkowo płatne</h3>
+                <ul class="space-y-3.5">
+                  {trip.notIncluded.map((item) => (
+                    <li class="flex items-start gap-3">
+                      <span class="flex items-center justify-center w-6 h-6 rounded-full bg-dark/5 shrink-0 mt-0.5">
+                        <svg class="text-dark/40" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                      </span>
+                      <span class="text-dark/60">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <!-- CTA -->
+            <div class="bg-gradient-to-br from-primary to-primary-dark text-white rounded-3xl p-6 md:p-7 text-center shadow-card">
+              <p class="text-xl font-bold mb-1.5 tracking-tight">Zarezerwuj telefonicznie</p>
+              <p class="text-white/80 mb-5 text-sm">To najszybszy sposób!</p>
+              <a
+                href="tel:+48793705063"
+                class="btn-white w-full"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                793 705 063
+              </a>
+              <a
+                href="tel:+48883005008"
+                class="block mt-3 text-white/85 hover:text-white transition-colors font-semibold"
+              >
+                lub 883 005 008
+              </a>
+            </div>
+
+            <!-- Back -->
             <a
-              href="tel:+48793705063"
-              class="inline-flex items-center justify-center gap-2 bg-white text-primary font-bold text-body px-8 py-4 rounded-xl hover:bg-white/90 transition-colors min-h-touch w-full"
+              href="/#oferta"
+              class="flex items-center justify-center gap-2 bg-light text-primary font-bold text-body py-4 rounded-full hover:bg-primary-soft transition-colors min-h-touch w-full"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              793 705 063
-            </a>
-            <a
-              href="tel:+48883005008"
-              class="block mt-2 text-white/80 hover:text-white transition-colors font-medium"
-            >
-              lub 883 005 008
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              Wróć do oferty
             </a>
           </div>
-
-          <!-- Back -->
-          <a
-            href="/#oferta"
-            class="flex items-center justify-center gap-2 bg-light text-primary font-bold text-body py-4 rounded-xl hover:bg-light/80 transition-colors min-h-touch w-full"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-            Wróć do oferty
-          </a>
         </div>
       </div>
     </div>

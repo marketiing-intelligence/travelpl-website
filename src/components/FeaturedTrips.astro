@@ -5,11 +5,12 @@ import TripCard from './TripCard.astro';
 const featured = trips.filter((t) => t.featured);
 ---
 
-<section class="py-16 md:py-24 bg-light">
-  <div class="max-w-7xl mx-auto px-4">
-    <div class="text-center mb-10 md:mb-14">
-      <h2 class="text-2xl md:text-3xl font-bold text-dark mb-3">Najczęściej wybierane</h2>
-      <p class="text-lg text-dark/60 max-w-xl mx-auto">
+<section class="py-16 md:py-28 bg-light scroll-mt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12 md:mb-16">
+      <span class="eyebrow justify-center">Hity sezonu</span>
+      <h2 class="section-title mb-4">Najczęściej wybierane</h2>
+      <p class="section-lead max-w-xl mx-auto">
         Te wyjazdy cieszą się największym zainteresowaniem — sprawdź, czy zostały jeszcze miejsca!
       </p>
     </div>

@@ -3,17 +3,18 @@ import { trips } from '../data/trips';
 import TripCard from './TripCard.astro';
 ---
 
-<section id="oferta" class="py-16 md:py-24">
-  <div class="max-w-7xl mx-auto px-4">
-    <div class="text-center mb-10 md:mb-14">
-      <h2 class="text-2xl md:text-3xl font-bold text-dark mb-3">Oferta wczasów 2026</h2>
-      <p class="text-lg text-dark/60 max-w-2xl mx-auto">
+<section id="oferta" class="py-16 md:py-28 scroll-mt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12 md:mb-16">
+      <span class="eyebrow justify-center">Pełna oferta</span>
+      <h2 class="section-title mb-4">Oferta wczasów 2026</h2>
+      <p class="section-lead max-w-2xl mx-auto">
         Zaplanuj urlop z wyprzedzeniem i miej wakacje z głowy. Wyjazdy od maja do września — morze, góry, miasta i wyjątkowe regiony Polski.
       </p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
       {trips.map((trip, i) => (
-        <div class="reveal" style={`animation-delay: ${i * 100}ms`}>
+        <div class="reveal" style={`animation-delay: ${(i % 3) * 100}ms`}>
           <TripCard trip={trip} />
         </div>
       ))}

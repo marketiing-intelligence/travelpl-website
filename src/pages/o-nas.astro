@@ -5,21 +5,23 @@ import HowToBook from '../components/HowToBook.astro';
 import FAQ from '../components/FAQ.astro';
 
 const icons = [
-  { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>', text: 'Komfortowe autokary klimatyzowane' },
-  { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', text: 'Ubezpieczenie w cenie każdego wyjazdu' },
-  { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>', text: 'Wyżywienie — śniadania i obiadokolacje' },
-  { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>', text: 'Zwiedzanie z doświadczonym przewodnikiem' },
-  { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>', text: 'Imprezy integracyjne, biesiady, disco' },
-  { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>', text: 'Morze, góry, miasta i regiony Polski' },
+  { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>', text: 'Komfortowe autokary klimatyzowane' },
+  { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', text: 'Ubezpieczenie w cenie każdego wyjazdu' },
+  { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>', text: 'Wyżywienie — śniadania i obiadokolacje' },
+  { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>', text: 'Zwiedzanie z doświadczonym przewodnikiem' },
+  { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>', text: 'Imprezy integracyjne, biesiady, disco' },
+  { icon: '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>', text: 'Morze, góry, miasta i regiony Polski' },
 ];
 ---
 
 <Layout title="O nas — Biuro Podróży TravelPL Wieruszów">
   <!-- About hero -->
-  <section class="py-16 md:py-24 bg-gradient-to-br from-primary to-primary/80 text-white">
-    <div class="max-w-4xl mx-auto px-4 text-center">
-      <h1 class="text-3xl md:text-4xl font-bold mb-6">O nas — Biuro Podróży TravelPL</h1>
-      <p class="text-lg md:text-xl leading-relaxed text-white/90 max-w-3xl mx-auto">
+  <section class="relative py-20 md:py-28 bg-gradient-to-br from-primary via-primary to-primary-dark text-white overflow-hidden">
+    <div class="absolute -top-20 -right-20 w-80 h-80 bg-white/5 rounded-full"></div>
+    <div class="absolute -bottom-32 -left-16 w-96 h-96 bg-white/5 rounded-full"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <h1 class="text-[clamp(2.2rem,5vw,3.5rem)] font-extrabold tracking-tight mb-6">O nas — Biuro Podróży TravelPL</h1>
+      <p class="text-lg md:text-2xl leading-relaxed text-white/90 max-w-3xl mx-auto">
         Jesteśmy biurem podróży z Wieruszowa, które od lat organizuje wygodne i bezpieczne wycieczki autokarowe po całej Polsce.
       </p>
     </div>
@@ -27,11 +29,11 @@ const icons = [
 
   <!-- About text -->
   <section class="py-16 md:py-24">
-    <div class="max-w-3xl mx-auto px-4">
-      <p class="text-lg leading-relaxed text-dark/80 mb-6">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <p class="text-lg md:text-xl leading-relaxed text-dark/80 mb-7">
         Naszym celem jest, żebyś mógł/mogła wyjść z domu, wsiąść do komfortowego autokaru i nie martwić się o nic — my zajmiemy się resztą. Zakwaterowanie, wyżywienie, ubezpieczenie, zwiedzanie z przewodnikiem i wieczorne integracje — wszystko zorganizowane od A do Z.
       </p>
-      <p class="text-lg leading-relaxed text-dark/80">
+      <p class="text-lg md:text-xl leading-relaxed text-dark/80">
         Jeździmy nad morze, w góry, na Podlasie, a nawet za granicę. Nasze wyjazdy to nie tylko zwiedzanie — to wspólne chwile, dobra energia i wspomnienia na lata.
       </p>
     </div>
@@ -39,12 +41,12 @@ const icons = [
 
   <!-- 6 icons USP -->
   <section class="py-16 md:py-24 bg-light">
-    <div class="max-w-5xl mx-auto px-4">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
         {icons.map((item) => (
-          <div class="bg-white rounded-2xl p-6 shadow-sm flex items-center gap-4">
-            <div class="text-primary shrink-0" set:html={item.icon} />
-            <p class="font-semibold text-dark">{item.text}</p>
+          <div class="card p-6 flex items-center gap-4 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300">
+            <div class="flex items-center justify-center w-14 h-14 rounded-2xl bg-primary-soft text-primary shrink-0" set:html={item.icon} />
+            <p class="font-bold text-dark leading-snug">{item.text}</p>
           </div>
         ))}
       </div>
@@ -56,13 +58,15 @@ const icons = [
   <FAQ />
 
   <!-- CTA -->
-  <section class="py-16 md:py-24 bg-accent text-white text-center">
-    <div class="max-w-3xl mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-bold mb-4">Masz pytania? Zadzwoń!</h2>
-      <p class="text-lg text-white/80 mb-8">Chętnie doradzimy i pomożemy wybrać idealną wycieczkę.</p>
+  <section class="relative py-16 md:py-24 bg-gradient-to-br from-accent to-accent-dark text-white text-center overflow-hidden">
+    <div class="absolute -top-16 -left-16 w-64 h-64 bg-white/5 rounded-full"></div>
+    <div class="absolute -bottom-24 -right-12 w-80 h-80 bg-white/5 rounded-full"></div>
+    <div class="relative max-w-3xl mx-auto px-4 sm:px-6">
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Masz pytania? Zadzwoń!</h2>
+      <p class="text-lg md:text-xl text-white/85 mb-9">Chętnie doradzimy i pomożemy wybrać idealną wycieczkę.</p>
       <a
         href="tel:+48793705063"
-        class="inline-flex items-center justify-center gap-2 bg-white text-accent font-bold text-body px-10 py-4 rounded-xl hover:bg-white/90 transition-colors min-h-touch"
+        class="btn bg-white text-accent shadow-card-hover hover:-translate-y-0.5 hover:bg-light text-lg px-10"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         Zadzwoń: 793 705 063
