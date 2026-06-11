@@ -18,9 +18,9 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: '12', label: 'wycieczek w sezonie 2026' },
-  { value: '10+', label: 'lat doświadczenia' },
-  { value: '100%', label: 'wyjazd z Wieruszowa' },
+  { value: '12', count: 12, suffix: '', label: 'wycieczek w sezonie 2026' },
+  { value: '10+', count: 10, suffix: '+', label: 'lat doświadczenia' },
+  { value: '100%', count: 100, suffix: '%', label: 'wyjazd z Wieruszowa' },
 ];
 ---
 
@@ -32,7 +32,7 @@ const stats = [
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-14 md:mb-20 max-w-4xl mx-auto">
       {stats.map((stat) => (
         <div class="text-center bg-white/70 backdrop-blur rounded-3xl py-6 px-4 ring-1 ring-dark/5">
-          <div class="text-4xl md:text-5xl font-extrabold tracking-tight text-primary">{stat.value}</div>
+          <div class="text-4xl md:text-5xl font-extrabold tracking-tight text-primary tabular-nums" data-count={stat.count} data-suffix={stat.suffix}>{stat.value}</div>
           <div class="text-base text-dark/65 mt-2 font-medium">{stat.label}</div>
         </div>
       ))}

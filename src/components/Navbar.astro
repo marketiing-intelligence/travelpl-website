@@ -88,31 +88,32 @@ const navItems = [
 </header>
 
 <script>
-  const toggle = document.getElementById('menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('menu-icon-open');
-  const iconClose = document.getElementById('menu-icon-close');
+  document.addEventListener('astro:page-load', () => {
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
 
-  toggle?.addEventListener('click', () => {
-    const isOpen = menu?.classList.toggle('hidden') === false;
-    iconOpen?.classList.toggle('hidden', isOpen);
-    iconClose?.classList.toggle('hidden', !isOpen);
-    toggle.setAttribute('aria-expanded', String(isOpen));
-  });
+    toggle?.addEventListener('click', () => {
+      const isOpen = menu?.classList.toggle('hidden') === false;
+      iconOpen?.classList.toggle('hidden', isOpen);
+      iconClose?.classList.toggle('hidden', !isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
 
-  // Close mobile menu on link click
-  menu?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      menu.classList.add('hidden');
-      iconOpen?.classList.remove('hidden');
-      iconClose?.classList.add('hidden');
-      toggle?.setAttribute('aria-expanded', 'false');
+    // Close mobile menu on link click
+    menu?.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menu.classList.add('hidden');
+        iconOpen?.classList.remove('hidden');
+        iconClose?.classList.add('hidden');
+        toggle?.setAttribute('aria-expanded', 'false');
+      });
     });
   });
 
-  // Stronger shadow on scroll
-  const navbar = document.getElementById('navbar');
-  const onScroll = () => navbar?.classList.toggle('shadow-card-hover', window.scrollY > 8);
+  // Stronger shadow on scroll — single global listener, re-queries DOM
+  const onScroll = () => document.getElementById('navbar')?.classList.toggle('shadow-card-hover', window.scrollY > 8);
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  document.addEventListener('astro:page-load', onScroll);
 </script>

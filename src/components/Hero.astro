@@ -16,20 +16,25 @@
   <!-- Dark Overlay — gradient for text readability -->
   <div class="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/35 to-dark/75"></div>
   <div class="absolute inset-0 bg-gradient-to-r from-dark/40 to-transparent"></div>
+  <div class="absolute inset-0 noise pointer-events-none"></div>
 
   <!-- Content -->
   <div class="relative z-10 h-full flex items-center">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
 
       <h1 class="text-[clamp(2.4rem,5.5vw,4.25rem)] font-extrabold leading-[1.08] tracking-tight text-white mb-6 max-w-3xl drop-shadow-lg">
-        Wycieczki autokarowe z&nbsp;Wieruszowa — <span class="relative inline-block whitespace-nowrap">wsiadasz i&nbsp;jedziesz!<svg class="absolute -bottom-2 left-0 w-full h-3 text-accent" viewBox="0 0 200 9" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7C50 2 150 2 198 6" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span>
+        <span class="word" style="--w:0">Wycieczki</span>
+        <span class="word" style="--w:1">autokarowe</span>
+        <span class="word" style="--w:2">z&nbsp;Wieruszowa</span>
+        <span class="word" style="--w:3">—</span>
+        <span class="word relative inline-block whitespace-nowrap" style="--w:4">wsiadasz i&nbsp;jedziesz!<svg class="absolute -bottom-2 left-0 w-full h-3 text-accent" viewBox="0 0 200 9" fill="none" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7C50 2 150 2 198 6" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span>
       </h1>
 
-      <p class="text-lg md:text-2xl leading-relaxed text-white/90 mb-10 max-w-2xl drop-shadow-md">
+      <p class="text-lg md:text-2xl leading-relaxed text-white/90 mb-10 max-w-2xl drop-shadow-md fade-up" style="--w:6">
         Od lat organizujemy wczasy nad morzem, w górach i za granicą. Hotel, wyżywienie i ubezpieczenie — wszystko w cenie. Wystarczy spakować walizkę!
       </p>
 
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 fade-up" style="--w:8">
         <a
           href="#oferta"
           class="btn-accent w-full sm:w-auto text-lg px-10"
@@ -77,13 +82,16 @@
 </div>
 
 <script>
-  const video = document.getElementById('hero-video') as HTMLVideoElement;
-  if (video) {
-    const show = () => { video.style.opacity = '1'; };
-    if (video.readyState >= 2) {
-      show();
-    } else {
-      video.addEventListener('canplay', show, { once: true });
+  document.addEventListener('astro:page-load', () => {
+    const video = document.getElementById('hero-video') as HTMLVideoElement | null;
+    if (video) {
+      const show = () => { video.style.opacity = '1'; };
+      if (video.readyState >= 2) {
+        show();
+      } else {
+        video.addEventListener('canplay', show, { once: true });
+      }
+      video.play().catch(() => {});
     }
-  }
+  });
 </script>

@@ -29,6 +29,7 @@ const typeLabel = trip.type === 'wczasy' ? 'Wczasy' : 'Wycieczka objazdowa';
         alt=""
         class="absolute inset-0 w-full h-full object-cover"
         loading="eager"
+        transition:name={`trip-img-${trip.slug}`}
       />
     )}
     <div class="absolute inset-0 bg-gradient-to-r from-dark/85 via-dark/65 to-dark/40"></div>

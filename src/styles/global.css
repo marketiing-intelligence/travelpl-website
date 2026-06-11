@@ -65,7 +65,20 @@
 
   /* Buttons */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 font-bold text-body rounded-full px-8 py-4 min-h-touch transition-all duration-200 select-none;
+    @apply relative overflow-hidden inline-flex items-center justify-center gap-2 font-bold text-body rounded-full px-8 py-4 min-h-touch transition-all duration-200 select-none;
+  }
+
+  /* Shine sweep on hover */
+  .btn::after {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 0.35) 50%, transparent 60%);
+    transform: translateX(-120%);
+  }
+
+  .btn:hover::after {
+    transform: translateX(120%);
+    transition: transform 0.7s ease;
   }
 
   .btn:active {
@@ -124,6 +137,67 @@
   animation: bounceDown 2s ease-in-out infinite;
 }
 
+/* Hero headline — staggered word reveal */
+@keyframes wordUp {
+  from {
+    opacity: 0;
+    transform: translateY(0.55em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.word {
+  display: inline-block;
+  opacity: 0;
+  animation: wordUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--w, 0) * 90ms + 150ms);
+}
+
+.fade-up {
+  opacity: 0;
+  animation: wordUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--w, 0) * 90ms + 150ms);
+}
+
+/* Cinematic grain on hero */
+.noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+}
+
+/* Destinations marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 36s linear infinite;
+  will-change: transform;
+}
+
+/* Scroll-driven parallax on card images (progressive enhancement) */
+@supports (animation-timeline: view()) {
+  @keyframes img-parallax {
+    from { transform: translateY(-7%) scale(1.12); }
+    to { transform: translateY(7%) scale(1.12); }
+  }
+  .parallax-img {
+    animation: img-parallax linear both;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+  }
+}
+
+/* Card tilt smoothing */
+.tilt {
+  transition: transform 0.25s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+}
+
 /* FAQ accordion content fade */
 details[open] > div {
   animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -139,8 +213,18 @@ details[open] > div {
   }
   .reveal.visible,
   .scroll-indicator,
-  details[open] > div {
+  details[open] > div,
+  .marquee-track,
+  .parallax-img {
     animation: none;
+  }
+  .word,
+  .fade-up {
+    opacity: 1;
+    animation: none;
+  }
+  .tilt {
+    transition: none;
   }
   .btn,
   .card,

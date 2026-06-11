@@ -161,11 +161,13 @@ import Layout from '../layouts/Layout.astro';
 </div>
 
 <script>
+  document.addEventListener('astro:page-load', () => {
   const iphoneBtn = document.getElementById('iphone-install-btn');
   const modal = document.getElementById('iphone-modal');
   const backdrop = document.getElementById('iphone-modal-backdrop');
   const closeBtn = document.getElementById('iphone-modal-close');
   const copyBtn = document.getElementById('iphone-copy-btn');
+  if (!iphoneBtn) return;
 
   function openModal() { modal?.classList.remove('hidden'); }
   function closeModal() { modal?.classList.add('hidden'); }
@@ -188,5 +190,6 @@ import Layout from '../layouts/Layout.astro';
     }
     copyBtn.textContent = 'Skopiowano!';
     setTimeout(() => { copyBtn.textContent = 'Kopiuj'; }, 2000);
+  });
   });
 </script>

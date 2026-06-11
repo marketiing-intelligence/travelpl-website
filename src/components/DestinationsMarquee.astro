@@ -1,0 +1,20 @@
+---
+import { trips } from '../data/trips';
+
+const names = [...new Set(trips.map((t) => t.name))];
+---
+
+<div class="py-10 md:py-14 overflow-hidden select-none" aria-hidden="true">
+  <div class="marquee-track flex items-center gap-8 w-max">
+    {[0, 1].map(() => (
+      <div class="flex items-center gap-8 shrink-0">
+        {names.map((name) => (
+          <span class="flex items-center gap-8 text-3xl md:text-5xl font-extrabold tracking-tight text-dark/10 whitespace-nowrap" style="font-family: 'Bricolage Grotesque', 'DM Sans', sans-serif;">
+            {name}
+            <svg class="text-accent/30 shrink-0" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg>
+          </span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>

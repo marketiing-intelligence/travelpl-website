@@ -68,9 +68,11 @@
       </form>
 
       <script>
-        const form = document.getElementById('contact-form') as HTMLFormElement;
+        document.addEventListener('astro:page-load', () => {
+        const form = document.getElementById('contact-form') as HTMLFormElement | null;
         const btn = document.getElementById('contact-submit') as HTMLButtonElement;
         const status = document.getElementById('contact-status') as HTMLDivElement;
+        if (!form) return;
 
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
@@ -106,6 +108,7 @@
             btn.disabled = false;
             btn.textContent = 'Wyślij wiadomość';
           }
+        });
         });
       </script>
 
