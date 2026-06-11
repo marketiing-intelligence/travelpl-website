@@ -3,22 +3,111 @@ import { trips } from '../data/trips';
 import TripCard from './TripCard.astro';
 
 const featured = trips.filter((t) => t.featured);
+const [spotlight, ...rest] = featured;
+
+const formattedPrice = spotlight
+  ? new Intl.NumberFormat('pl-PL').format(spotlight.price)
+  : '';
+
+const regionColors: Record<string, string> = {
+  morze: 'bg-primary text-white',
+  gory: 'bg-success text-white',
+  miasto: 'bg-accent text-white',
+  zagranica: 'bg-amber-600 text-white',
+};
+
+const regionLabels: Record<string, string> = {
+  morze: 'Morze',
+  gory: 'Góry',
+  miasto: 'Miasto',
+  zagranica: 'Zagranica',
+};
 ---
 
 <section class="px-2 sm:px-4 pt-10 sm:pt-14 scroll-mt-20">
   <div class="frame bg-light max-w-[110rem] mx-auto py-16 md:py-24">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
-    <div class="text-center mb-12 md:mb-16">
-      <span class="eyebrow justify-center">Hity sezonu</span>
-      <h2 class="section-title mb-4">Najczęściej wybierane</h2>
-      <p class="section-lead max-w-xl mx-auto">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Hity sezonu</span>
+        <h2 class="section-title">Najczęściej wybierane</h2>
+      </div>
+      <p class="section-lead max-w-md lg:text-right lg:pb-2">
         Te wyjazdy cieszą się największym zainteresowaniem — sprawdź, czy zostały jeszcze miejsca!
       </p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-      {featured.map((trip, i) => (
+
+    {spotlight && (
+      <article class="group card tilt overflow-hidden hover:shadow-card-hover mb-6 md:mb-8 reveal">
+        <div class="grid grid-cols-1 lg:grid-cols-5">
+          <!-- Image -->
+          <div class="relative lg:col-span-3 h-64 sm:h-80 lg:h-auto lg:min-h-[420px] overflow-hidden">
+            <img
+              src={spotlight.image}
+              alt={spotlight.fullName}
+              class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              loading="eager"
+              transition:name={`trip-img-${spotlight.slug}-feat`}
+            />
+            <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-dark/60 to-transparent lg:hidden"></div>
+            <span class={`absolute top-5 left-5 text-sm font-bold px-3.5 py-1.5 rounded-full shadow-sm ${regionColors[spotlight.region]}`}>
+              {regionLabels[spotlight.region]}
+            </span>
+            {(spotlight.urgencyBadge || spotlight.badge) && (
+              <span class={`absolute top-5 right-5 text-white text-sm font-bold px-3.5 py-1.5 rounded-full shadow-sm ${spotlight.urgencyBadge ? 'bg-red-600 animate-pulse' : 'bg-accent'}`}>
+                {spotlight.urgencyBadge || spotlight.badge}
+              </span>
+            )}
+          </div>
+
+          <!-- Content -->
+          <div class="lg:col-span-2 p-7 md:p-10 flex flex-col">
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+              <span class="inline-flex items-center gap-1.5 bg-light text-dark/70 text-sm font-semibold px-3 py-1 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                {spotlight.dates}
+              </span>
+              <span class="inline-flex items-center bg-light text-dark/70 text-sm font-semibold px-3 py-1 rounded-full">{spotlight.duration}</span>
+              {spotlight.beachDistance && (
+                <span class="inline-flex items-center bg-primary-soft text-primary text-sm font-semibold px-3 py-1 rounded-full">{spotlight.beachDistance}</span>
+              )}
+            </div>
+
+            <h3 class="text-3xl md:text-4xl font-bold tracking-tight text-dark mb-4 leading-tight" style="font-family: 'Bricolage Grotesque', 'DM Sans', sans-serif;">{spotlight.fullName}</h3>
+            <p class="text-dark/70 text-lg leading-relaxed mb-6 flex-1">{spotlight.shortDescription}</p>
+
+            <div class="flex items-end justify-between gap-4 pt-5 border-t border-dark/5 mb-5">
+              <div class="leading-tight">
+                <span class="block text-sm text-dark/50">od</span>
+                <span class="text-4xl font-extrabold tracking-tight text-primary">{formattedPrice} zł<span class="text-lg font-semibold text-dark/40"> /os</span></span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <a
+                href={`/wycieczka/${spotlight.slug}`}
+                class="inline-flex items-center justify-center gap-1.5 bg-primary text-white font-bold py-3.5 rounded-full shadow-cta-blue hover:bg-primary-dark hover:-translate-y-0.5 transition-all text-base min-h-touch"
+              >
+                Więcej
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+              <a
+                href="tel:+48793705063"
+                class="inline-flex items-center justify-center gap-2 text-accent font-bold text-base py-3.5 rounded-full hover:bg-accent-soft transition-colors min-h-touch border-2 border-accent/25"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Zadzwoń
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+    )}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      {rest.map((trip, i) => (
         <div class="reveal" style={`animation-delay: ${i * 150}ms`}>
-          <TripCard trip={trip} />
+          <TripCard trip={trip} nameSuffix="-feat" />
         </div>
       ))}
     </div>

@@ -56,7 +56,18 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-dark;
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-dark;
+  }
+
+  /* Asymmetric editorial section header */
+  .section-head {
+    @apply flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 mb-12 md:mb-16;
+  }
+
+  /* Outlined display text (on dark) */
+  .text-outline {
+    -webkit-text-stroke: 2px rgb(255 255 255 / 0.9);
+    color: transparent;
   }
 
   .section-lead {
