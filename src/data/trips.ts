@@ -126,7 +126,7 @@ export const trips: Trip[] = [
   {
     slug: 'mielno',
     name: 'Mielno',
-    fullName: 'Mielno — It\'s Summer Time!',
+    fullName: 'Mielno — Czas na lato!',
     type: 'wczasy',
     region: 'morze',
     dates: '17–25.07.2026',
@@ -135,7 +135,7 @@ export const trips: Trip[] = [
     image: '/images/trips/mielno.jpg',
     beachDistance: '350m od plaży',
     shortDescription: 'Ponad tydzień nad morzem — najbliżej plaży ze wszystkich! Wieczorek integracyjny z muzyką na żywo.',
-    fullDescription: 'It\'s Summer Time! Ponad tydzień nad morzem w jednym z najpopularniejszych kurortów Polskiego Wybrzeża. Obiekt najbliżej plaży ze wszystkich w naszej ofercie — tylko 350m! Wieczorek integracyjny z poczęstunkiem i muzyką na żywo.',
+    fullDescription: 'Czas na lato! Ponad tydzień nad morzem w jednym z najpopularniejszych kurortów Polskiego Wybrzeża. Obiekt najbliżej plaży ze wszystkich w naszej ofercie — tylko 350m! Wieczorek integracyjny z poczęstunkiem i muzyką na żywo.',
     included: [
       'Przejazd klimatyzowanym autokarem',
       'Zakwaterowanie w pokojach z prywatną łazienką (TV, Wi-Fi, lodówka, czajnik, ręczniki, sprzęt plażowy)',
