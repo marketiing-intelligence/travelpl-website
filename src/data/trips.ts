@@ -106,7 +106,7 @@ export const trips: Trip[] = [
     image: '/images/trips/mrzezyno.jpg',
     beachDistance: '550m od plaży',
     shortDescription: 'Wypoczynek nad morzem w kameralnym kurorcie. Pokoje z pełnym wyposażeniem.',
-    fullDescription: 'Wypoczynek nad morzem w kameralnym kurorcie. Mrzeżyno to spokojna miejscowość z piękną plażą i bliskością natury. Pokoje z prywatną łazienką, TV, WiFi.',
+    fullDescription: 'Wypoczynek nad morzem w kameralnym kurorcie u ujścia rzeki Regi. Mrzeżyno to spokojna miejscowość z piękną, szeroką plażą i bliskością natury — bez tłumów wielkich kurortów, za to z nadmorskim klimatem i sosnowym lasem tuż obok. Codziennie śniadanie ze stołu szwedzkiego i obiadokolacja. Wygodne pokoje z prywatną łazienką, TV, Wi-Fi, lodówką i czajnikiem. Tydzień spokojnego wypoczynku w swoim rytmie — plaża, spacery, morska bryza.',
     included: [
       'Przejazd klimatyzowanym autokarem',
       'Zakwaterowanie w pokojach z prywatną łazienką (TV, Wi-Fi, lodówka, czajnik, ręczniki)',
@@ -135,7 +135,7 @@ export const trips: Trip[] = [
     image: '/images/trips/mielno.jpg',
     beachDistance: '350m od plaży',
     shortDescription: 'Ponad tydzień nad morzem — najbliżej plaży ze wszystkich! Wieczorek integracyjny z muzyką na żywo.',
-    fullDescription: 'Czas na lato! Ponad tydzień nad morzem w jednym z najpopularniejszych kurortów Polskiego Wybrzeża. Obiekt najbliżej plaży ze wszystkich w naszej ofercie — tylko 350m! Wieczorek integracyjny z poczęstunkiem i muzyką na żywo.',
+    fullDescription: 'Czas na lato! Ponad tydzień wypoczynku w samym środku wakacji — w Mielnie, jednym z najpopularniejszych kurortów polskiego wybrzeża. Obiekt położony najbliżej plaży ze wszystkich w naszej ofercie — na piasek dojdziesz spacerem w kilka minut, a sprzęt plażowy czeka na miejscu. Codziennie śniadanie ze stołu szwedzkiego i obiadokolacja, a wieczorem czas na odpoczynek lub spacer promenadą. W programie także wieczorek integracyjny z poczęstunkiem i muzyką na żywo — okazja do wspólnej zabawy i poznania pozostałych uczestników. Wygodne pokoje z prywatną łazienką, TV, Wi-Fi, lodówką i czajnikiem.',
     included: [
       'Przejazd klimatyzowanym autokarem',
       'Zakwaterowanie w pokojach z prywatną łazienką (TV, Wi-Fi, lodówka, czajnik, ręczniki, sprzęt plażowy)',
@@ -197,7 +197,7 @@ export const trips: Trip[] = [
     image: '/images/trips/rowy.jpg',
     beachDistance: '270m od plaży',
     shortDescription: 'Pełne wyżywienie — 3 posiłki dziennie! Tylko 270m od plaży, blisko Słowińskiego Parku Narodowego.',
-    fullDescription: 'Pełne wyżywienie — śniadania, obiady i kolacje! Rowy to kameralna miejscowość z szeroką plażą — tylko 270m od obiektu — i bliskością Słowińskiego Parku Narodowego.',
+    fullDescription: 'Pełne wyżywienie — śniadania, obiady i kolacje przez cały pobyt, bez martwienia się o gotowanie i zakupy! Rowy to kameralna, spokojna miejscowość rybacka położona tuż przy Słowińskim Parku Narodowym — idealna dla osób, które cenią ciszę, czyste powietrze i bliskość natury. Szeroka, piaszczysta plaża znajduje się zaledwie 270 metrów od obiektu, więc na spacer nad morze można wybrać się o każdej porze dnia. Wygodne pokoje z prywatną łazienką, TV i Wi-Fi. Tydzień prawdziwego odpoczynku w jednym z najpiękniejszych zakątków polskiego wybrzeża.',
     included: [
       'Przejazd klimatyzowanym autokarem',
       'Zakwaterowanie w pokojach z prywatną łazienką (TV, Wi-Fi, lodówka, czajnik, ręczniki)',
