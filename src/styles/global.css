@@ -23,6 +23,11 @@
     text-wrap: balance;
   }
 
+  h1, h2 {
+    font-family: 'Bricolage Grotesque', 'DM Sans', system-ui, sans-serif;
+    letter-spacing: -0.025em;
+  }
+
   ::selection {
     background: rgb(26 93 200 / 0.18);
   }
@@ -37,12 +42,17 @@
 @layer components {
   /* Section header pattern */
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.16em] text-primary mb-3;
+    @apply inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.14em] text-primary bg-primary-soft rounded-full px-4 py-1.5 mb-4;
   }
 
   .eyebrow::before {
     content: '';
-    @apply block w-8 h-0.5 bg-accent rounded-full;
+    @apply block w-1.5 h-1.5 bg-accent rounded-full;
+  }
+
+  /* Framed section (Linear/Stripe style) */
+  .frame {
+    @apply rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden;
   }
 
   .section-title {

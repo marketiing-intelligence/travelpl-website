@@ -5,7 +5,8 @@ import TripCard from './TripCard.astro';
 const featured = trips.filter((t) => t.featured);
 ---
 
-<section class="py-16 md:py-28 bg-light scroll-mt-20">
+<section class="px-2 sm:px-4 pt-10 sm:pt-14 scroll-mt-20">
+  <div class="frame bg-light max-w-[110rem] mx-auto py-16 md:py-24">
   <div class="max-w-7xl mx-auto px-4 sm:px-6">
     <div class="text-center mb-12 md:mb-16">
       <span class="eyebrow justify-center">Hity sezonu</span>
@@ -21,5 +22,6 @@ const featured = trips.filter((t) => t.featured);
         </div>
       ))}
     </div>
+  </div>
   </div>
 </section>
