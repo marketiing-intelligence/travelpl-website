@@ -1,0 +1,87 @@
+---
+export const prerender = false;
+import AdminLayout from '../../layouts/AdminLayout.astro';
+const token = Astro.url.searchParams.get('token') ?? '';
+const inputCls = 'w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500';
+---
+
+<AdminLayout title="Odzyskiwanie hasła — TravelPL">
+  <div class="max-w-sm mx-auto mt-12 sm:mt-20 bg-white rounded-2xl shadow-sm ring-1 ring-slate-200 p-8" data-token={token}>
+    {token ? (
+      <>
+        <h1 class="text-xl font-bold mb-1">Ustaw nowe hasło</h1>
+        <p class="text-sm text-slate-500 mb-6">Wpisz nowe hasło do panelu (min. 8 znaków).</p>
+        <form id="confirm-form" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1" for="newPassword">Nowe hasło</label>
+            <input id="newPassword" type="password" autocomplete="new-password" required class={inputCls} />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1" for="newPasswordConfirm">Powtórz hasło</label>
+            <input id="newPasswordConfirm" type="password" autocomplete="new-password" required class={inputCls} />
+          </div>
+          <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2.5 rounded-lg hover:bg-blue-700 transition-colors">Zapisz nowe hasło</button>
+          <p id="msg" class="text-sm"></p>
+        </form>
+      </>
+    ) : (
+      <>
+        <h1 class="text-xl font-bold mb-1">Odzyskiwanie hasła</h1>
+        <p class="text-sm text-slate-500 mb-6">Podaj email przypisany do konta — wyślemy link do ustawienia nowego hasła.</p>
+        <form id="request-form" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1" for="email">Email</label>
+            <input id="email" type="email" required class={inputCls} placeholder="twoj@email.pl" />
+          </div>
+          <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2.5 rounded-lg hover:bg-blue-700 transition-colors">Wyślij link</button>
+          <p id="msg" class="text-sm"></p>
+        </form>
+      </>
+    )}
+    <p class="text-sm text-slate-400 mt-6 text-center"><a href="/admin/login" class="hover:text-blue-600">← Powrót do logowania</a></p>
+  </div>
+
+  <script>
+    const box = document.querySelector('[data-token]') as HTMLElement;
+    const token = box?.dataset.token || '';
+    const msg = document.getElementById('msg')!;
+    const val = (id: string) => (document.getElementById(id) as HTMLInputElement)?.value ?? '';
+
+    document.getElementById('request-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = 'Wysyłanie…';
+      msg.className = 'text-sm text-slate-500';
+      await fetch('/api/admin/reset-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: val('email') }),
+      });
+      msg.textContent = 'Jeśli ten email jest przypisany do konta, wysłaliśmy link. Sprawdź skrzynkę.';
+      msg.className = 'text-sm text-green-600';
+    });
+
+    document.getElementById('confirm-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      if (val('newPassword') !== val('newPasswordConfirm')) {
+        msg.textContent = 'Hasła nie są takie same.';
+        msg.className = 'text-sm text-red-600';
+        return;
+      }
+      const res = await fetch('/api/admin/reset-confirm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, newPassword: val('newPassword') }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        msg.textContent = 'Hasło zmienione ✓ Przekierowanie do logowania…';
+        msg.className = 'text-sm text-green-600';
+        setTimeout(() => (window.location.href = '/admin/login'), 1500);
+      } else {
+        msg.textContent = data.error || 'Nie udało się.';
+        msg.className = 'text-sm text-red-600';
+      }
+    });
+  </script>
+</AdminLayout>

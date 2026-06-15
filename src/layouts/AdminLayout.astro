@@ -4,7 +4,7 @@ interface Props {
 }
 const { title = 'Panel — TravelPL' } = Astro.props;
 const path = Astro.url.pathname;
-const showChrome = path !== '/admin/login';
+const showChrome = path !== '/admin/login' && path !== '/admin/reset';
 ---
 
 <!doctype html>
@@ -22,6 +22,7 @@ const showChrome = path !== '/admin/login';
           <a href="/admin" class="font-bold tracking-tight">Panel TravelPL</a>
           <nav class="flex items-center gap-5 text-sm">
             <a href="/admin" class="text-slate-600 hover:text-blue-600">Wycieczki</a>
+            <a href="/admin/konto" class="text-slate-600 hover:text-blue-600">Konto</a>
             <a href="/" target="_blank" class="text-slate-600 hover:text-blue-600">Podgląd strony ↗</a>
             <button id="logout" type="button" class="text-red-600 hover:underline">Wyloguj</button>
           </nav>

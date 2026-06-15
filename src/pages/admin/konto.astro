@@ -1,0 +1,95 @@
+---
+export const prerender = false;
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { readAccount } from '../../lib/account';
+
+const account = await readAccount();
+const email = account?.email ?? '';
+const inputCls = 'w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500';
+const labelCls = 'block text-sm font-medium text-slate-700 mb-1';
+---
+
+<AdminLayout title="Konto — Panel TravelPL">
+  <div class="mb-6">
+    <a href="/admin" class="text-sm text-slate-500 hover:text-blue-600">← Wróć do listy</a>
+    <h1 class="text-2xl font-bold mt-1">Konto</h1>
+    <p class="text-sm text-slate-500 mt-1">Zmień hasło i ustaw email do odzyskiwania dostępu.</p>
+  </div>
+
+  <form id="account-form" class="max-w-lg space-y-6">
+    <section class="bg-white rounded-2xl ring-1 ring-slate-200 p-6 space-y-4">
+      <div>
+        <label class={labelCls} for="email">Email do odzyskiwania *</label>
+        <input id="email" type="email" value={email} required class={inputCls} placeholder="twoj@email.pl" />
+        <p class="text-xs text-slate-400 mt-1">Na ten adres wyślemy link, jeśli zapomnisz hasła.</p>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-2xl ring-1 ring-slate-200 p-6 space-y-4">
+      <h2 class="font-bold">Zmiana hasła</h2>
+      <div>
+        <label class={labelCls} for="newPassword">Nowe hasło</label>
+        <input id="newPassword" type="password" autocomplete="new-password" class={inputCls} placeholder="zostaw puste, aby nie zmieniać" />
+        <p class="text-xs text-slate-400 mt-1">Min. 8 znaków. Zostaw puste, jeśli zmieniasz tylko email.</p>
+      </div>
+      <div>
+        <label class={labelCls} for="newPasswordConfirm">Powtórz nowe hasło</label>
+        <input id="newPasswordConfirm" type="password" autocomplete="new-password" class={inputCls} />
+      </div>
+    </section>
+
+    <section class="bg-white rounded-2xl ring-1 ring-slate-200 p-6 space-y-4">
+      <div>
+        <label class={labelCls} for="currentPassword">Aktualne hasło (wymagane do zapisu) *</label>
+        <input id="currentPassword" type="password" autocomplete="current-password" required class={inputCls} />
+      </div>
+    </section>
+
+    <div class="flex items-center gap-3">
+      <button type="submit" id="save-btn" class="bg-blue-600 text-white font-semibold px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50">
+        Zapisz zmiany
+      </button>
+      <p id="msg" class="text-sm"></p>
+    </div>
+  </form>
+
+  <script>
+    const form = document.getElementById('account-form') as HTMLFormElement;
+    const msg = document.getElementById('msg')!;
+    const btn = document.getElementById('save-btn') as HTMLButtonElement;
+    const val = (id: string) => (document.getElementById(id) as HTMLInputElement).value;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      const newPassword = val('newPassword');
+      if (newPassword && newPassword !== val('newPasswordConfirm')) {
+        msg.textContent = 'Nowe hasła nie są takie same.';
+        msg.className = 'text-sm text-red-600';
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = 'Zapisywanie…';
+      try {
+        const res = await fetch('/api/admin/account', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: val('email'), currentPassword: val('currentPassword'), newPassword }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Nie udało się zapisać.');
+        msg.textContent = 'Zapisano ✓';
+        msg.className = 'text-sm text-green-600';
+        (document.getElementById('newPassword') as HTMLInputElement).value = '';
+        (document.getElementById('newPasswordConfirm') as HTMLInputElement).value = '';
+        (document.getElementById('currentPassword') as HTMLInputElement).value = '';
+      } catch (err) {
+        msg.textContent = (err as Error).message;
+        msg.className = 'text-sm text-red-600';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Zapisz zmiany';
+      }
+    });
+  </script>
+</AdminLayout>

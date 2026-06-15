@@ -1,9 +1,9 @@
 export const prerender = false;
 import type { APIRoute } from 'astro';
 import { createToken, COOKIE } from '../../../lib/auth';
+import { checkLoginPassword } from '../../../lib/account';
 
 const AUTH_SECRET = process.env.AUTH_SECRET ?? import.meta.env.AUTH_SECRET;
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? import.meta.env.ADMIN_PASSWORD;
 
 export const POST: APIRoute = async ({ request, cookies }) => {
   let password = '';
@@ -13,7 +13,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     /* brak body */
   }
 
-  if (!ADMIN_PASSWORD || password !== ADMIN_PASSWORD) {
+  if (!(await checkLoginPassword(password))) {
     return new Response(JSON.stringify({ error: 'Błędne hasło' }), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
