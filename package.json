@@ -3,7 +3,8 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "node --env-file-if-exists=.env.local node_modules/astro/astro.js dev",
+    "seed": "node --env-file-if-exists=.env.local --import tsx scripts/seed-blob.ts",
     "build:pwa": "cd ../wieruszow-app && npm run build",
     "copy:pwa": "rm -rf public/app && cp -r ../wieruszow-app/dist public/app",
     "build:full": "npm run build:pwa && npm run copy:pwa && astro build",
@@ -15,8 +16,12 @@
     "@astrojs/sitemap": "^3.3.1",
     "@astrojs/tailwind": "^6.0.2",
     "@astrojs/vercel": "^9.0.5",
+    "@vercel/blob": "^2.4.0",
     "astro": "^5.17.1",
     "resend": "^6.9.3",
     "tailwindcss": "^3.4.19"
+  },
+  "devDependencies": {
+    "tsx": "^4.22.4"
   }
 }

@@ -1,0 +1,278 @@
+---
+import type { Trip } from '../../lib/types';
+
+interface Props {
+  trip?: Trip;
+  mode: 'new' | 'edit';
+}
+const { trip, mode } = Astro.props;
+const t = trip;
+const lines = (arr?: string[]) => (arr ?? []).join('\n');
+
+const inputCls =
+  'w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500';
+const labelCls = 'block text-sm font-medium text-slate-700 mb-1';
+const helpCls = 'text-xs text-slate-400 mt-1';
+---
+
+<form id="trip-form" data-mode={mode} data-original-slug={t?.slug ?? ''} class="space-y-8">
+  <!-- Podstawowe -->
+  <section class="bg-white rounded-2xl ring-1 ring-slate-200 p-6">
+    <h2 class="font-bold text-lg mb-4">Podstawowe informacje</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class={labelCls} for="name">Krótka nazwa *</label>
+        <input id="name" class={inputCls} value={t?.name ?? ''} placeholder="np. Łeba" />
+      </div>
+      <div>
+        <label class={labelCls} for="slug">Adres URL (slug) *</label>
+        <input id="slug" class={inputCls} value={t?.slug ?? ''} placeholder="np. leba" />
+        <p class={helpCls}>Adres strony: /wycieczka/<span id="slug-preview">{t?.slug ?? ''}</span></p>
+      </div>
+      <div class="sm:col-span-2">
+        <label class={labelCls} for="fullName">Pełna nazwa (tytuł na stronie) *</label>
+        <input id="fullName" class={inputCls} value={t?.fullName ?? ''} placeholder="np. Łeba — Nowy obiekt noclegowy" />
+      </div>
+      <div>
+        <label class={labelCls} for="type">Typ *</label>
+        <select id="type" class={inputCls}>
+          <option value="wczasy" selected={t?.type === 'wczasy'}>Wczasy</option>
+          <option value="wycieczka" selected={t?.type === 'wycieczka'}>Wycieczka objazdowa</option>
+        </select>
+      </div>
+      <div>
+        <label class={labelCls} for="region">Region *</label>
+        <select id="region" class={inputCls}>
+          <option value="morze" selected={t?.region === 'morze'}>Morze</option>
+          <option value="gory" selected={t?.region === 'gory'}>Góry</option>
+          <option value="miasto" selected={t?.region === 'miasto'}>Miasto</option>
+          <option value="zagranica" selected={t?.region === 'zagranica'}>Zagranica</option>
+        </select>
+      </div>
+      <div>
+        <label class={labelCls} for="dates">Daty *</label>
+        <input id="dates" class={inputCls} value={t?.dates ?? ''} placeholder="np. 22–29.06.2026" />
+      </div>
+      <div>
+        <label class={labelCls} for="duration">Czas trwania *</label>
+        <input id="duration" class={inputCls} value={t?.duration ?? ''} placeholder="np. 8 dni" />
+      </div>
+      <div>
+        <label class={labelCls} for="price">Cena (zł / os.) *</label>
+        <input id="price" type="number" min="1" class={inputCls} value={t?.price ?? ''} placeholder="np. 2100" />
+      </div>
+      <div>
+        <label class={labelCls} for="beachDistance">Odległość od plaży (opcjonalnie)</label>
+        <input id="beachDistance" class={inputCls} value={t?.beachDistance ?? ''} placeholder="np. 450m od plaży" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Zdjęcie -->
+  <section class="bg-white rounded-2xl ring-1 ring-slate-200 p-6">
+    <h2 class="font-bold text-lg mb-4">Zdjęcie *</h2>
+    <input id="image" type="hidden" value={t?.image ?? ''} />
+    <div class="flex flex-col sm:flex-row gap-5 items-start">
+      <div class="w-full sm:w-64 aspect-[3/2] rounded-xl bg-slate-100 ring-1 ring-slate-200 overflow-hidden flex items-center justify-center shrink-0">
+        <img id="image-preview" src={t?.image ?? ''} alt="" class={t?.image ? 'w-full h-full object-cover' : 'hidden'} />
+        <span id="image-placeholder" class={t?.image ? 'hidden' : 'text-sm text-slate-400'}>Brak zdjęcia</span>
+      </div>
+      <div class="flex-1">
+        <input id="image-file" type="file" accept="image/*"
+          class="block w-full text-sm text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-50 file:text-blue-700 file:font-semibold hover:file:bg-blue-100" />
+        <p id="upload-status" class="text-sm mt-2"></p>
+        <p class={helpCls}>JPG, PNG lub WebP. Maksymalnie 4 MB. Zdjęcie wgrywa się automatycznie po wybraniu.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Opisy -->
+  <section class="bg-white rounded-2xl ring-1 ring-slate-200 p-6">
+    <h2 class="font-bold text-lg mb-4">Opisy</h2>
+    <div class="space-y-4">
+      <div>
+        <label class={labelCls} for="shortDescription">Krótki opis (na kartę) *</label>
+        <textarea id="shortDescription" rows="2" class={inputCls} placeholder="1–2 zdania widoczne na liście wycieczek">{t?.shortDescription ?? ''}</textarea>
+      </div>
+      <div>
+        <label class={labelCls} for="fullDescription">Pełny opis (na stronie wycieczki) *</label>
+        <textarea id="fullDescription" rows="6" class={inputCls} placeholder="Pełny opis wycieczki">{t?.fullDescription ?? ''}</textarea>
+      </div>
+      <div>
+        <label class={labelCls} for="importantInfo">Ważna informacja (opcjonalnie)</label>
+        <input id="importantInfo" class={inputCls} value={t?.importantInfo ?? ''} placeholder="np. Wymagany dowód osobisty" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Listy -->
+  <section class="bg-white rounded-2xl ring-1 ring-slate-200 p-6">
+    <h2 class="font-bold text-lg mb-1">Listy</h2>
+    <p class="text-sm text-slate-500 mb-4">Każda pozycja w osobnej linii (Enter = nowa pozycja).</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class={labelCls} for="included">Co w cenie *</label>
+        <textarea id="included" rows="7" class={inputCls} placeholder="Przejazd autokarem&#10;Pełne wyżywienie&#10;Ubezpieczenie NNW">{lines(t?.included)}</textarea>
+      </div>
+      <div>
+        <label class={labelCls} for="notIncluded">Dodatkowo płatne (opcjonalnie)</label>
+        <textarea id="notIncluded" rows="7" class={inputCls} placeholder="Dopłata do pokoju 1-os.&#10;Wycieczki fakultatywne">{lines(t?.notIncluded)}</textarea>
+      </div>
+      <div>
+        <label class={labelCls} for="highlights">Atrakcje / highlighty *</label>
+        <textarea id="highlights" rows="5" class={inputCls} placeholder="Nowy obiekt&#10;Pełne wyżywienie&#10;Blisko plaży">{lines(t?.highlights)}</textarea>
+      </div>
+      <div>
+        <label class={labelCls} for="itinerary">Trasa (opcjonalnie)</label>
+        <textarea id="itinerary" rows="5" class={inputCls} placeholder="Białystok&#10;Supraśl&#10;Tykocin">{lines(t?.itinerary)}</textarea>
+      </div>
+      <div class="sm:col-span-2">
+        <label class={labelCls} for="program">Program dzień po dniu (opcjonalnie)</label>
+        <textarea id="program" rows="5" class={inputCls} placeholder="Dzień 1: ...&#10;Dzień 2: ...">{lines(t?.program)}</textarea>
+        <p class={helpCls}>Wpisuj w formacie „Dzień 1: opis" — etykieta przed dwukropkiem wyświetli się pogrubiona.</p>
+      </div>
+      <div class="sm:col-span-2">
+        <label class={labelCls} for="specialAttractions">Atrakcje specjalne (opcjonalnie)</label>
+        <textarea id="specialAttractions" rows="4" class={inputCls} placeholder="Rejs po Dunaju&#10;Degustacja serów">{lines(t?.specialAttractions)}</textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- Oznaczenia -->
+  <section class="bg-white rounded-2xl ring-1 ring-slate-200 p-6">
+    <h2 class="font-bold text-lg mb-4">Oznaczenia i promocja</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class={labelCls} for="badge">Plakietka (opcjonalnie)</label>
+        <input id="badge" class={inputCls} value={t?.badge ?? ''} placeholder="np. Nowy obiekt!" />
+      </div>
+      <div>
+        <label class={labelCls} for="urgencyBadge">Plakietka pilna — pulsująca (opcjonalnie)</label>
+        <input id="urgencyBadge" class={inputCls} value={t?.urgencyBadge ?? ''} placeholder="np. Ostatnie miejsca!" />
+      </div>
+      <div class="sm:col-span-2">
+        <label class="flex items-center gap-3 cursor-pointer select-none">
+          <input id="featured" type="checkbox" checked={t?.featured} class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+          <span class="text-sm font-medium text-slate-700">Pokaż w sekcji „Najczęściej wybierane" na stronie głównej</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Akcje -->
+  <div class="flex items-center gap-3 sticky bottom-0 bg-slate-100/90 backdrop-blur py-4 -mx-4 px-4 border-t border-slate-200">
+    <button type="submit" id="submit-btn" class="bg-blue-600 text-white font-semibold px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50">
+      {mode === 'new' ? 'Dodaj wycieczkę' : 'Zapisz zmiany'}
+    </button>
+    <a href="/admin" class="px-5 py-2.5 rounded-lg text-slate-600 hover:bg-slate-200 transition-colors">Anuluj</a>
+    <p id="form-error" class="text-sm text-red-600"></p>
+  </div>
+</form>
+
+<script>
+  const form = document.getElementById('trip-form') as HTMLFormElement;
+  const mode = form.dataset.mode;
+  const originalSlug = form.dataset.originalSlug || '';
+
+  const $ = (id: string) => document.getElementById(id) as HTMLInputElement & HTMLTextAreaElement & HTMLSelectElement;
+
+  // --- Auto-slug z nazwy ---
+  const slugify = (s: string) =>
+    s.toLowerCase().trim()
+      .replace(/ą/g, 'a').replace(/ć/g, 'c').replace(/ę/g, 'e').replace(/ł/g, 'l').replace(/ń/g, 'n')
+      .replace(/ó/g, 'o').replace(/ś/g, 's').replace(/ź/g, 'z').replace(/ż/g, 'z')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+  const slugInput = $('slug');
+  const slugPreview = document.getElementById('slug-preview');
+  let slugTouched = mode === 'edit';
+  slugInput.addEventListener('input', () => {
+    slugTouched = true;
+    if (slugPreview) slugPreview.textContent = slugInput.value;
+  });
+  $('name').addEventListener('input', (e) => {
+    if (!slugTouched) {
+      slugInput.value = slugify((e.target as HTMLInputElement).value);
+      if (slugPreview) slugPreview.textContent = slugInput.value;
+    }
+  });
+
+  // --- Upload zdjęcia ---
+  const imageFile = $('image-file');
+  const imageHidden = $('image');
+  const preview = document.getElementById('image-preview') as HTMLImageElement;
+  const placeholder = document.getElementById('image-placeholder');
+  const uploadStatus = document.getElementById('upload-status')!;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+
+  imageFile.addEventListener('change', async () => {
+    const file = imageFile.files?.[0];
+    if (!file) return;
+    if (file.size > 4 * 1024 * 1024) {
+      uploadStatus.textContent = 'Zdjęcie jest za duże (maks. 4 MB).';
+      uploadStatus.className = 'text-sm mt-2 text-red-600';
+      imageFile.value = '';
+      return;
+    }
+    uploadStatus.textContent = 'Wgrywanie…';
+    uploadStatus.className = 'text-sm mt-2 text-slate-500';
+    submitBtn.disabled = true;
+    const fd = new FormData();
+    fd.append('image', file);
+    fd.append('slug', slugInput.value || $('name').value || 'wycieczka');
+    try {
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Błąd wgrywania');
+      imageHidden.value = data.url;
+      preview.src = data.url;
+      preview.classList.remove('hidden');
+      placeholder?.classList.add('hidden');
+      uploadStatus.textContent = 'Zdjęcie wgrane ✓';
+      uploadStatus.className = 'text-sm mt-2 text-green-600';
+    } catch (err) {
+      uploadStatus.textContent = (err as Error).message;
+      uploadStatus.className = 'text-sm mt-2 text-red-600';
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  // --- Zapis ---
+  const errorEl = document.getElementById('form-error')!;
+  const textFields = ['slug', 'name', 'fullName', 'dates', 'duration', 'beachDistance', 'badge', 'urgencyBadge', 'shortDescription', 'fullDescription', 'importantInfo'];
+  const listFields = ['included', 'notIncluded', 'highlights', 'itinerary', 'program', 'specialAttractions'];
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorEl.textContent = '';
+
+    const data: Record<string, unknown> = {};
+    for (const f of textFields) data[f] = $(f).value.trim();
+    data.type = $('type').value;
+    data.region = $('region').value;
+    data.price = Number($('price').value);
+    data.image = imageHidden.value;
+    data.featured = $('featured').checked;
+    for (const f of listFields) {
+      data[f] = $(f).value.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Zapisywanie…';
+    try {
+      const res = await fetch('/api/admin/trips', {
+        method: mode === 'new' ? 'POST' : 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(mode === 'new' ? data : { originalSlug, trip: data }),
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || 'Nie udało się zapisać.');
+      window.location.href = '/admin';
+    } catch (err) {
+      errorEl.textContent = (err as Error).message;
+      submitBtn.disabled = false;
+      submitBtn.textContent = mode === 'new' ? 'Dodaj wycieczkę' : 'Zapisz zmiany';
+    }
+  });
+</script>

@@ -1,0 +1,48 @@
+---
+export const prerender = false;
+import AdminLayout from '../../layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Logowanie — Panel TravelPL">
+  <div class="max-w-sm mx-auto mt-12 sm:mt-20 bg-white rounded-2xl shadow-sm ring-1 ring-slate-200 p-8">
+    <h1 class="text-xl font-bold mb-1">Panel TravelPL</h1>
+    <p class="text-sm text-slate-500 mb-6">Zaloguj się, aby zarządzać wycieczkami.</p>
+    <form id="login-form" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium mb-1" for="password">Hasło</label>
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          required
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <button type="submit" class="w-full bg-blue-600 text-white font-semibold py-2.5 rounded-lg hover:bg-blue-700 transition-colors">
+        Zaloguj
+      </button>
+      <p id="error" class="text-sm text-red-600 hidden"></p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('login-form') as HTMLFormElement | null;
+    const err = document.getElementById('error') as HTMLParagraphElement | null;
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err?.classList.add('hidden');
+      const password = (document.getElementById('password') as HTMLInputElement).value;
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        window.location.href = '/admin';
+      } else if (err) {
+        err.textContent = 'Błędne hasło. Spróbuj ponownie.';
+        err.classList.remove('hidden');
+      }
+    });
+  </script>
+</AdminLayout>

@@ -1,6 +1,11 @@
 ---
-import { trips } from '../data/trips';
+import type { Trip } from '../lib/types';
 import TripCard from './TripCard.astro';
+
+interface Props {
+  trips: Trip[];
+}
+const { trips } = Astro.props;
 ---
 
 <section id="oferta" class="py-16 md:py-28 scroll-mt-20">

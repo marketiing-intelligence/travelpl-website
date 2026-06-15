@@ -6,14 +6,19 @@ import Testimonials from '../components/Testimonials.astro';
 import TripGrid from '../components/TripGrid.astro';
 import DestinationsMarquee from '../components/DestinationsMarquee.astro';
 import Contact from '../components/Contact.astro';
+import { getTrips } from '../lib/trips';
+
+const trips = await getTrips();
+const featured = trips.filter((t) => t.featured);
+const names = [...new Set(trips.map((t) => t.name))];
 ---
 
 <Layout>
   <Hero />
-  <FeaturedTrips />
+  <FeaturedTrips trips={featured} />
   <Testimonials />
-  <DestinationsMarquee />
-  <TripGrid />
+  <DestinationsMarquee names={names} />
+  <TripGrid trips={trips} />
 
   <!-- Jak podróżujemy -->
   <section class="py-16 md:py-28 bg-white">

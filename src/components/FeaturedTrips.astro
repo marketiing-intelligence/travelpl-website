@@ -1,9 +1,12 @@
 ---
-import { trips } from '../data/trips';
+import type { Trip } from '../lib/types';
 import TripCard from './TripCard.astro';
 
-const featured = trips.filter((t) => t.featured);
-const [spotlight, ...rest] = featured;
+interface Props {
+  trips: Trip[];
+}
+const { trips } = Astro.props;
+const [spotlight, ...rest] = trips;
 
 const formattedPrice = spotlight
   ? new Intl.NumberFormat('pl-PL').format(spotlight.price)

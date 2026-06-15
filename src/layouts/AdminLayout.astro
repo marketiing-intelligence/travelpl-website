@@ -1,0 +1,42 @@
+---
+interface Props {
+  title?: string;
+}
+const { title = 'Panel — TravelPL' } = Astro.props;
+const path = Astro.url.pathname;
+const showChrome = path !== '/admin/login';
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-slate-100 min-h-screen text-slate-900 antialiased">
+    {showChrome && (
+      <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+        <div class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+          <a href="/admin" class="font-bold tracking-tight">Panel TravelPL</a>
+          <nav class="flex items-center gap-5 text-sm">
+            <a href="/admin" class="text-slate-600 hover:text-blue-600">Wycieczki</a>
+            <a href="/" target="_blank" class="text-slate-600 hover:text-blue-600">Podgląd strony ↗</a>
+            <button id="logout" type="button" class="text-red-600 hover:underline">Wyloguj</button>
+          </nav>
+        </div>
+      </header>
+    )}
+    <main class="max-w-5xl mx-auto px-4 py-8">
+      <slot />
+    </main>
+
+    <script>
+      document.getElementById('logout')?.addEventListener('click', async () => {
+        await fetch('/api/admin/logout', { method: 'POST' });
+        window.location.href = '/admin/login';
+      });
+    </script>
+  </body>
+</html>

@@ -1,21 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Contact from '../../components/Contact.astro';
-import { trips } from '../../data/trips';
-import type { Trip } from '../../data/trips';
+import { getTrips } from '../../lib/trips';
 
-export function getStaticPaths() {
-  return trips.map((trip) => ({
-    params: { slug: trip.slug },
-    props: { trip },
-  }));
-}
+const { slug } = Astro.params;
+const trips = await getTrips();
+const trip = trips.find((t) => t.slug === slug);
+if (!trip) return Astro.rewrite('/404');
 
-interface Props {
-  trip: Trip;
-}
-
-const { trip } = Astro.props;
 const formattedPrice = new Intl.NumberFormat('pl-PL').format(trip.price);
 const typeLabel = trip.type === 'wczasy' ? 'Wczasy' : 'Wycieczka objazdowa';
 ---

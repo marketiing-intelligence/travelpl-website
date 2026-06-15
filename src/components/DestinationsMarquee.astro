@@ -1,7 +1,8 @@
 ---
-import { trips } from '../data/trips';
-
-const names = [...new Set(trips.map((t) => t.name))];
+interface Props {
+  names: string[];
+}
+const { names } = Astro.props;
 ---
 
 <div class="py-10 md:py-14 overflow-hidden select-none" aria-hidden="true">
